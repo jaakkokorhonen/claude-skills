@@ -1,0 +1,26 @@
+# Config for lychee (https://github.com/lycheeverse/lychee), used by
+# .github/workflows/link-check.yml.
+#
+# CI always runs with `--offline`, so lychee never makes a network request —
+# only local file links (relative Markdown cross-references) are resolved
+# and checked for existence. This is a deliberate scope decision (see
+# skills/link-check/README.md): external http(s) links are excluded here
+# to avoid flaky CI on network timeouts/rate limits, not because they don't
+# matter. `--offline` makes remote-scheme handling moot, but the excludes
+# below also apply if this config is ever run without it locally.
+exclude = [
+  '^https?://',
+  '^mailto:',
+]
+
+# Not part of the repo's published documentation surface.
+# Note: exclude_path entries are regular expressions, not globs.
+exclude_path = [
+  '\.git/',
+  '__pycache__',
+]
+
+# Fail fast in CI rather than hanging on a slow/unreachable host.
+timeout = 10
+retry_wait_time = 2
+max_retries = 1
